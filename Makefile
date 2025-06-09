@@ -5,7 +5,7 @@ CC := i686-elf-gcc
 
 C_FILES := $(wildcard $(SRC_DIR)/*.c)
 S_FILES := $(wildcard $(SRC_DIR)/*.s)
-FORMATABLES := $(C_FILES) $(S_FILES)
+FORMATABLES := $(C_FILES)
 
 C_OBJECTS := $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(C_FILES))
 S_OBJECTS := $(patsubst $(SRC_DIR)/%.s, $(BUILD_DIR)/%.o, $(S_FILES))
