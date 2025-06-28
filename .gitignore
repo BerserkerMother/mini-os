@@ -1,2 +1,5 @@
 # build dir
 build/
+*.iso
+isodir
+sysroot
