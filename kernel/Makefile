@@ -37,6 +37,8 @@ KERNEL_OBJS=\
 					$(KERNEL_ARCH_OBJS) \
 					kernel/kernel.o \
 					kernel/format.o \
+					kernel/gdt.o \
+					kernel/idt.o \
 
 # possible all O files
 OBJS:=\

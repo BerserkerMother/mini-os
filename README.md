@@ -54,3 +54,16 @@ For example:
 
 ### IO
 We have two different kind of IO. Memory mapped IO and Port mapped IO. We can access the first one by simply writing to the memory location(e.g. VGA text mode). To access the later, We need a port address (e.g. 0x3f8 serial port one), then we can use outb assembly instruction to write a char to it.
+
+## Descriptor Table
+Has different types global descriptor table, interrupt descriptor table and local descriptor table. It contains entries that hold infomration about single object(e.g. a service, a routine, a task, chunk of code, data) that CPU might need at some point.
+
+### Global Descriptor Table(GDT)
+A binary data structure that tells CPU about memory segments. 
+
+## to read
+- MMU
+- Real mode
+- Protected mode
+- Long mode
+- Common bugs in C programs

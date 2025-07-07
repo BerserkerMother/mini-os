@@ -8,8 +8,13 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "gdt.h"
+#include "idt.h"
+
 extern uint32_t page_directory;
 extern uint32_t page_table_0;
+extern uint32_t gdt_start;
+extern uint32_t gdt_end;
 
 static inline uint32_t _read_cr0(void) {
   uint32_t cr0;
@@ -28,8 +33,28 @@ bool _is_paging_enabled(void) {
   return (cr0 & 0x80000000) != 0;
 }
 
+void _enable_gdt(void) {
+  asm("cli");
+  setup_gdt_entry(&gdt_start);
+  set_gdt((&gdt_start - &gdt_end - 1), &gdt_start);
+  reload_segments();
+  serialprint("GDT is set!\n");
+}
+
+void _enable_idt(void) {
+  setup_idt();
+  load_idt();
+  serialprint("IDT is set!\n");
+}
+
 void kernel_main(void) {
   terminal_initialize(VGA_COLOR_GREEN, VGA_COLOR_BLACK);
   printf("Kernel Initialized!\n");
-  serialprint("Hello World!\n%x", 128);
+  _enable_gdt();
+  _enable_idt();
+  serialprint("CR0=0x%x\n", _read_cr0());
+  *(int*)0xFFFFFFC = 2;
+  for (;;) {
+    asm("hlt");
+  }
 }
