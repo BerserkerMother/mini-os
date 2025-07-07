@@ -14,20 +14,25 @@
 
 # Reserve a stack for the initial thread.
 .section .bss
+.align 8
+.global gdt_start
+gdt_start:
+    .skip 40 # 5 entries
+.global gdt_end
+gdt_end:
+
 .align 16
 stack_bottom:
 .skip 16384 # 16 KiB
 stack_top:
 
 .section .data
-
 .align 4096
 .global page_directory
 page_directory:
   .rept 1024
     .long 0x2
   .endr
-
 
 .align 4096
 .global page_table_0
@@ -36,8 +41,40 @@ page_table_0:
     .long 0x2
   .endr
 
+gdtr:
+    .word 0
+    .long 0 
+
 # The kernel entry point.
 .section .text
+
+.global set_gdt
+.type set_gdt, @function
+set_gdt:
+  movw 4(%esp), %ax
+  movw %ax, gdtr
+  movl 8(%esp), %eax
+  movl %eax, gdtr+2
+  lgdt gdtr
+  ret
+  .size set_gdt, . - set_gdt
+
+.global reload_segments
+.type reload_segments, @function
+reload_segments:
+  ljmp   $0x08, $1f
+
+1:
+  movw   $0x10, %ax
+  movw   %ax, %ds
+  movw   %ax, %es
+  movw   %ax, %fs
+  movw   %ax, %gs
+  movw   %ax, %ss
+
+  ret
+  .size reload_segments, .-reload_segments
+
 
 .type setup_paging, @function
 setup_paging:
@@ -88,7 +125,7 @@ _start:
 	call kernel_main
 
 	# Hang if kernel_main unexpectedly returns.
-	cli
+  cli
 1:	hlt
 	jmp 1b
 .size _start, . - _start
