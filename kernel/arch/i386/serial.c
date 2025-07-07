@@ -13,11 +13,9 @@ static inline void outb(unsigned short port, unsigned char c) {
 
 int write_serial(const char* c) {
   int written = 0;
-  for (; *c != '\0'; c++) {
+  for (; *c != '\0'; c++, written++) {
     outb(PORT, *c);
-    written++;
   }
-
   return written;
 }
 
@@ -33,11 +31,10 @@ static file* serial_buffer() {
 }
 
 int serialprint(const char* restrict format, ...) {
-  file* file = serial_buffer();
+  file* f = serial_buffer();
   va_list parameters;
   va_start(parameters, format);
-  int written = vfprintf(file, format, parameters);
-  printf("written: %d", written);
+  int written = vfprintf(f, format, parameters);
   va_end(parameters);
   return written;
 }
