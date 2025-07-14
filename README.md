@@ -61,9 +61,16 @@ Has different types global descriptor table, interrupt descriptor table and loca
 ### Global Descriptor Table(GDT)
 A binary data structure that tells CPU about memory segments. 
 
+### Interrupt Descriptor Table(IDT)
+A binary data structure that tell CPU where interrupt service routines are located. It maps IRQ and exception indentifier to interrupr service routine(ISR).
+
+### Programmable interrupt controller(PIC) 
+A controller responsible for gathering interrupts and send them to CPU. In this manner the CPU doesn't have to poll on interrupts to check if one of them happens. PIC gets the interrupts and send them to CPU as it sees fit.
+
 ## to read
 - MMU
 - Real mode
 - Protected mode
 - Long mode
 - Common bugs in C programs
+
