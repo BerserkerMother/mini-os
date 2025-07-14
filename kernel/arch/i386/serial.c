@@ -1,15 +1,12 @@
 #include <kernel/file.h>
 #include <kernel/format.h>
+#include <kernel/io.h>
 #include <kernel/serial.h>
 #include <stdarg.h>
 #include <stdio.h>
 
 #define BUFFER_LENGTH 128
 #define PORT 0x3f8
-
-static inline void outb(unsigned short port, unsigned char c) {
-  __asm__ volatile("outb %0, %1" : : "a"(c), "Nd"(port) :);
-}
 
 int write_serial(const char* c) {
   int written = 0;

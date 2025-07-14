@@ -38,7 +38,8 @@ void terminal_scroll(int line) {
   char *loop;
   char c;
 
-  for (loop = line * (VGA_WIDTH * 2) + 0xB8000; loop < VGA_WIDTH * 2; loop++) {
+  for (loop = line * (VGA_WIDTH * 2) + 0xB8000;
+       loop < (line + 1) * (VGA_WIDTH * 2) + 0xB8000; loop++) {
     c = *loop;
     *(loop - (VGA_WIDTH * 2)) = c;
   }
@@ -56,7 +57,7 @@ void terminal_delete_last_line() {
 void terminal_newline() {
   terminal_col = 0;
   if (++terminal_row == VGA_HEIGHT) {
-    for (int i = 1; i < VGA_HEIGHT; i++) {
+    for (int i = 0; i < VGA_HEIGHT; i++) {
       terminal_scroll(i);
     }
     terminal_delete_last_line();
