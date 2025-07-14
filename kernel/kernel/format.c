@@ -44,6 +44,11 @@ static int print(file* file, const char* s, size_t length) {
 
 static int printnum(file* file, uint32_t num, size_t base) {
   int i = BUFFER_SIZE - 2;
+  if (num == 0) {
+    write_buffer[i] = '0';
+    i--;
+  }
+
   for (; num; num /= base, i--) {
     write_buffer[i] = "0123456789abcdefghijklmnopqrstuvwxyz"[num % base];
   }
