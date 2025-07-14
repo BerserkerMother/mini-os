@@ -8,8 +8,8 @@ isr\int_no\()_handler:
   .if \has_err == 0
     pushl $0
   .endif
-  # for debug
-  pushl \int_no
+  # for debug interrupt number
+  pushl $\int_no
   # all general purpose registers
   pushal 
   push %esp
@@ -25,3 +25,5 @@ isr\int_no\()_handler:
 ISR_STUB 8, 1
 ISR_STUB 13, 1
 ISR_STUB 14, 1
+ISR_STUB 32, 0
+ISR_STUB 33, 0

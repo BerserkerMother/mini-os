@@ -1,5 +1,6 @@
 #include <kernel/file.h>
 #include <kernel/format.h>
+#include <kernel/pic.h>
 #include <kernel/serial.h>
 #include <kernel/tty.h>
 #include <kernel/vga.h>
@@ -47,13 +48,19 @@ void _enable_idt(void) {
   serialprint("IDT is set!\n");
 }
 
+void _init_pic(void) {
+  pic_initialize(0x20, 0x28);
+  serialprint("PIC intialized\n");
+}
+
 void kernel_main(void) {
   terminal_initialize(VGA_COLOR_GREEN, VGA_COLOR_BLACK);
   printf("Kernel Initialized!\n");
   _enable_gdt();
   _enable_idt();
+  _init_pic();
   serialprint("CR0=0x%x\n", _read_cr0());
-  *(int*)0xFFFFFFC = 2;
+  asm("sti");
   for (;;) {
     asm("hlt");
   }
