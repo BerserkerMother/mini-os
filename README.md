@@ -67,10 +67,18 @@ A binary data structure that tell CPU where interrupt service routines are locat
 ### Programmable interrupt controller(PIC) 
 A controller responsible for gathering interrupts and send them to CPU. In this manner the CPU doesn't have to poll on interrupts to check if one of them happens. PIC gets the interrupts and send them to CPU as it sees fit.
 
-## to read
+## To read
 - MMU
 - Real mode
 - Protected mode
 - Long mode
 - Common bugs in C programs
+
+## To do
+- [] Study Acess2
+- [] Implement UDI
+- [] Study filesystem
+- [] Implement filesystem
+- [] Study NIC
+- [] Implement NIC
 
