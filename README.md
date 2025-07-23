@@ -75,10 +75,10 @@ A controller responsible for gathering interrupts and send them to CPU. In this 
 - Common bugs in C programs
 
 ## To do
-- [] Study Acess2
-- [] Implement UDI
-- [] Study filesystem
-- [] Implement filesystem
-- [] Study NIC
-- [] Implement NIC
+- [ ] Study Acess2
+- [ ] Implement UDI
+- [ ] Study filesystem
+- [ ] Implement filesystem
+- [ ] Study NIC
+- [ ] Implement NIC
 
